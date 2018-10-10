@@ -1,28 +1,28 @@
 // https://github.com/gyetvan-andras/react-native-dnd-list/blob/master/DnDTestScreen.js
 
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React from 'react'
+import { StyleSheet, View, Text } from 'react-native'
 
-import { DnDList } from './DnDList';
+import { DnDList } from './DnDList'
 
-const ROW_COUNT = 15;
-const ROW_HEIGHT = 60;
+const ROW_COUNT = 15
+const ROW_HEIGHT = 60
 
 const arrayMove = (arr, oldIndex, newIndex) => {
   if (newIndex >= arr.length) {
-    var k = newIndex - arr.length;
+    var k = newIndex - arr.length
     while (k-- + 1) {
-      arr.push(undefined);
+      arr.push(undefined)
     }
   }
-  arr.splice(newIndex, 0, arr.splice(oldIndex, 1)[0]);
-  return arr; // for testing purposes
-};
+  arr.splice(newIndex, 0, arr.splice(oldIndex, 1)[0])
+  return arr // for testing purposes
+}
 
 export class DnDTestScreen extends React.Component {
   constructor(props) {
-    super(props);
-    this.rows = [];
+    super(props)
+    this.rows = []
     // let size = [];
     for (let i = 0; i < ROW_COUNT; i++) {
       this.rows.push({
@@ -31,7 +31,7 @@ export class DnDTestScreen extends React.Component {
         // draggable: true,
         // locked: boolean - basically defaults to false
         // height: ROW_HEIGHT, -- if you add this, you need to implement itemSizes too
-      });
+      })
     }
     // size = this.rows.map(row => row.height); // .push(40 + (i * 3))
     // this.state = { itemSizes: size };
@@ -49,7 +49,7 @@ export class DnDTestScreen extends React.Component {
         // noDragHandle={true}
         // itemSizes={this.state.itemSizes}
       />
-    );
+    )
   }
 
   renderRow = (item, idx) => {
@@ -61,15 +61,15 @@ export class DnDTestScreen extends React.Component {
           <Text style={styles.cardText}>Y</Text>
         </View>
       </View>
-    );
-  };
+    )
+  }
 
   handleDrop = (from, to) => {
-    this.rows = arrayMove(this.rows, from, to);
+    this.rows = arrayMove(this.rows, from, to)
     // let size = this.rows.map(row => row.height); // .push(40 + (i * 3))
     // this.setState({ itemSizes: size });
-    return this.rows;
-  };
+    return this.rows
+  }
 }
 
 const styles = StyleSheet.create({
@@ -102,4 +102,4 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 20,
   },
-});
+})
