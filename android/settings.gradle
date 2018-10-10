@@ -1,0 +1,3 @@
+rootProject.name = 'testSortableLists'
+
+include ':app'
