@@ -8,6 +8,8 @@ If you want to take a look at it, please feel free but, again, I'm not really pr
 
 ## Demo
 
+![Demo](https://raw.githubusercontent.com/kelset/test-rn-sortable-lists/master/demo.gif | width=360)
+
 ## TODO
 
 - [ ] make the code less ugly, atm is unwatchable
