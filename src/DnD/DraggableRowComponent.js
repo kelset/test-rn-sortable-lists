@@ -72,7 +72,8 @@ export class DraggableRowComponent extends React.Component {
     return middle <= start + this.size / 2
   }
 
-  componentWillMount() {
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillMount() {
     let self = this
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: (evt, gestureState) => {
@@ -389,12 +390,16 @@ export class DraggableRowComponent extends React.Component {
       }
     } else {
       return (
-        <Animated.View style={[baseStyle, animationStyle]}>
+        <Animated.View
+          style={[baseStyle, animationStyle]}
+          pointerEvents="box-none"
+        >
           <View
             style={{
               flex: 1,
               flexDirection: 'row',
             }}
+            pointerEvents="box-none"
           >
             {rowContent}
             {dragHandle}

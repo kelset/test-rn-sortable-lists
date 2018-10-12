@@ -65,11 +65,15 @@ export default class SortableScrollView extends React.Component {
           flex: 1,
           marginVertical: 10,
         }}
+        pointerEvents="box-none"
       >
         <Text style={[styles.cardText, { width: 25, alignSelf: 'center' }]}>
           {idx}
         </Text>
-        <View style={[styles.card, { paddingRight: 80 }]}>
+        <View
+          style={[styles.card, { paddingRight: 80 }]}
+          pointerEvents="box-none"
+        >
           <TouchableOpacity
             style={styles.cardButton}
             onPress={this.onButtonPress}
