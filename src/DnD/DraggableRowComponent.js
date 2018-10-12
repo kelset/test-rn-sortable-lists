@@ -8,6 +8,7 @@ import {
   Animated,
   Easing,
   Platform,
+  StyleSheet,
 } from 'react-native'
 
 const SORTING_AREA_WIDTH = 80
@@ -257,20 +258,11 @@ export class DraggableRowComponent extends React.Component {
   }
 
   render() {
-    let handlerStyle = {
-      width: SORTING_AREA_WIDTH,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      position: 'absolute',
-      top: 0,
-      bottom: this.props.horizontal ? 0 : null,
-      height: this.props.horizontal ? null : this.size,
-    }
+    const { horizontal } = this.props
 
     let baseStyle = null
     let animationStyle = null
-    if (this.props.horizontal) {
+    if (horizontal) {
       baseStyle = {
         position: 'absolute',
         top: 0,
@@ -346,7 +338,7 @@ export class DraggableRowComponent extends React.Component {
       if (draggable) {
         dragHandle = (
           <Animated.View
-            style={[handlerStyle, { right: 0 }]}
+            style={styles.handlerStyle}
             {...this._panResponder.panHandlers}
           >
             <View style={{ paddingVertical: 10 }}>
@@ -355,55 +347,79 @@ export class DraggableRowComponent extends React.Component {
           </Animated.View>
         )
       } else {
-        dragHandle = (
-          <Animated.View
-            style={[handlerStyle, { right: 0, backgroundColor: 'transparent' }]}
-          />
-        )
+        dragHandle = <Animated.View style={styles.handlerStyle} />
       }
     }
 
-    if (this.props.noDragHandle) {
-      // this props seem to suggest that you can have the whole row draggable
-      if (!draggable) {
-        return (
-          <Animated.View style={[baseStyle, animationStyle]}>
-            <View style={{ flex: 1, flexDirection: 'row' }}>{rowContent}</View>
-          </Animated.View>
-        )
-      } else {
-        return (
-          <Animated.View style={[baseStyle, animationStyle]}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-              }}
-              {...this._panResponder.panHandlers}
-            >
-              {rowContent}
-            </View>
-          </Animated.View>
-        )
-      }
-    } else {
+    if (!this.props.noDragHandle) {
+      dragHandle = draggable ? (
+        <Animated.View
+          style={[
+            styles.handlerStyle,
+            {
+              bottom: horizontal ? 0 : null,
+              height: horizontal ? null : this.size,
+            },
+          ]}
+          {...this._panResponder.panHandlers}
+        >
+          <View style={{ paddingVertical: 10 }}>
+            <Text>Reorder</Text>
+          </View>
+        </Animated.View>
+      ) : (
+        <Animated.View
+          style={[
+            styles.handlerStyle,
+            {
+              bottom: horizontal ? 0 : null,
+              height: horizontal ? null : this.size,
+            },
+          ]}
+        />
+      )
+
       return (
         <Animated.View
           style={[baseStyle, animationStyle]}
           pointerEvents="box-none"
         >
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-            }}
-            pointerEvents="box-none"
-          >
+          <View style={styles.row} pointerEvents="box-none">
             {rowContent}
             {dragHandle}
           </View>
         </Animated.View>
       )
+    } else {
+      return draggable ? (
+        <Animated.View style={[baseStyle, animationStyle]}>
+          <View style={styles.row} {...this._panResponder.panHandlers}>
+            {rowContent}
+          </View>
+        </Animated.View>
+      ) : (
+        <Animated.View style={[baseStyle, animationStyle]}>
+          {<View style={styles.row}>{rowContent}</View>}
+        </Animated.View>
+      )
     }
   }
 }
+
+const styles = StyleSheet.create({
+  row: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: 'red',
+  },
+  handlerStyle: {
+    width: SORTING_AREA_WIDTH,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    backgroundColor: 'aquamarine',
+  },
+})

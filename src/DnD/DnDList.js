@@ -358,6 +358,7 @@ export class DnDList extends React.Component {
           style={{
             height: this.props.horizontal ? null : listSize,
             width: this.props.horizontal ? listSize : null,
+            backgroundColor: 'gold',
           }}
         >
           {this._renderRows()}
