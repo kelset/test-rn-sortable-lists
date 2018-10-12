@@ -147,6 +147,9 @@ export class DnDList extends React.Component {
   }
 
   _dragDrop = (gestureState, draggableRow) => {
+    if (!draggableRow) {
+      return false
+    }
     let rows = this.state.rows
     let from = draggableRow.props.idx
     let to = rows.length - 1
@@ -263,10 +266,12 @@ export class DnDList extends React.Component {
         targetRow ? targetRow.props.item : null,
         draggedRow.props.item,
       )
-    } else {
+    } else if (targetRow) {
       return targetRow.props.item.locked !== undefined
         ? targetRow.props.item.locked
         : false
+    } else {
+      return false
     }
   }
 
