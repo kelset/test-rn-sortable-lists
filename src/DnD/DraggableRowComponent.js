@@ -154,7 +154,7 @@ export class DraggableRowComponent extends React.Component {
       this.props.setScrollEnabled(false)
       this.props.dragStart(gestureState, this)
       this.setState({ zIndex: 1000 }, () => {
-        // TODO: this is the one to blame for bounciness
+        // this is the one to blame for bounciness
         Animated.spring(this.anim, {
           toValue: 0,
           velocity: 1,
@@ -335,23 +335,6 @@ export class DraggableRowComponent extends React.Component {
     let draggable = this.props.isDraggable(this)
 
     if (!this.props.noDragHandle) {
-      if (draggable) {
-        dragHandle = (
-          <Animated.View
-            style={styles.handlerStyle}
-            {...this._panResponder.panHandlers}
-          >
-            <View style={{ paddingVertical: 10 }}>
-              <Text>Reorder</Text>
-            </View>
-          </Animated.View>
-        )
-      } else {
-        dragHandle = <Animated.View style={styles.handlerStyle} />
-      }
-    }
-
-    if (!this.props.noDragHandle) {
       dragHandle = draggable ? (
         <Animated.View
           style={[
@@ -363,7 +346,7 @@ export class DraggableRowComponent extends React.Component {
           ]}
           {...this._panResponder.panHandlers}
         >
-          <View style={{ paddingVertical: 10 }}>
+          <View style={styles.reorderBox}>
             <Text>Reorder</Text>
           </View>
         </Animated.View>
@@ -412,6 +395,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: 'red',
   },
+  reorderBox: { paddingVertical: 10 },
   handlerStyle: {
     width: SORTING_AREA_WIDTH,
     flexDirection: 'row',
