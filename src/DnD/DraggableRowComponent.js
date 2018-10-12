@@ -280,7 +280,6 @@ export class DraggableRowComponent extends React.Component {
         margin: 10,
         flexDirection: 'row',
         justifyContent: 'center',
-        // backgroundColor: 'white',
       }
       animationStyle = {
         transform: [
@@ -311,7 +310,6 @@ export class DraggableRowComponent extends React.Component {
         margin: 10,
         flexDirection: 'row',
         justifyContent: 'center',
-        // backgroundColor: 'white',
       }
       animationStyle = {
         transform: [

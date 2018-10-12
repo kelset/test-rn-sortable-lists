@@ -29,22 +29,30 @@ export class DnDList extends React.Component {
 
   constructor(props) {
     super(props)
+
     this.state = {
       scrollEnabled: true,
       rows: props.rows.map(row => {
         return { row, key: uuid.v4() }
       }),
+      listSize: props.rows.reduce((accumulator, currentValue, currentIndex) => {
+        return this.itemSize(currentIndex) + accumulator
+      }, 0),
     }
     this.draggableRows = []
     this.currentPaceMakerRow = null
     this.scrollContentOffset = { y: 0, x: 0 }
   }
 
-  componentWillReceiveProps({ rows }) {
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps({ rows }) {
     this.setState({
       rows: rows.map(row => {
         return { row, key: uuid.v4() }
       }),
+      listSize: rows.reduce((accumulator, currentValue, currentIndex) => {
+        return this.itemSize(currentIndex) + accumulator
+      }, 0),
     })
   }
 
@@ -161,6 +169,7 @@ export class DnDList extends React.Component {
     if (this.props.stopDrag) this.props.stopDrag()
 
     // this._reset(draggableRow)
+    return false
   }
 
   itemSize = idx => {
@@ -327,10 +336,7 @@ export class DnDList extends React.Component {
   }
 
   render() {
-    let contentSize = 0
-    for (let i = 0; i < this.state.rows.length; i++) {
-      contentSize += this.itemSize(i)
-    }
+    const { listSize } = this.state
 
     return (
       <ScrollView
@@ -345,10 +351,8 @@ export class DnDList extends React.Component {
       >
         <View
           style={{
-            flex: 0,
-            // backgroundColor: 'green',
-            height: this.props.horizontal ? null : contentSize,
-            width: this.props.horizontal ? contentSize : null,
+            height: this.props.horizontal ? null : listSize,
+            width: this.props.horizontal ? listSize : null,
           }}
         >
           {this._renderRows()}
