@@ -363,14 +363,9 @@ export class DraggableRowComponent extends React.Component {
       )
 
       return (
-        <Animated.View
-          style={[baseStyle, animationStyle]}
-          pointerEvents="box-none"
-        >
-          <View style={styles.row} pointerEvents="box-none">
-            {rowContent}
-            {dragHandle}
-          </View>
+        <Animated.View style={[baseStyle, animationStyle]}>
+          {rowContent}
+          {dragHandle}
         </Animated.View>
       )
     } else {
@@ -382,7 +377,7 @@ export class DraggableRowComponent extends React.Component {
         </Animated.View>
       ) : (
         <Animated.View style={[baseStyle, animationStyle]}>
-          {<View style={styles.row}>{rowContent}</View>}
+          {rowContent}
         </Animated.View>
       )
     }
