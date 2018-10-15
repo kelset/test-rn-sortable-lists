@@ -25,6 +25,8 @@ const arrayMove = (arr, oldIndex, newIndex) => {
 // * better naming convention for rows, items and such
 // * Flow typing
 
+// FIXME: this implementation has clearly some issue with the scrolling!
+
 export class FrankenList extends React.Component {
   scrollDelta = 0
 
@@ -57,12 +59,6 @@ export class FrankenList extends React.Component {
     })
   }
 
-  getItemLayout = (data, index) => ({
-    length: this.itemSize(index),
-    offset: this.itemSize(index) * index,
-    index,
-  })
-
   // static getDerivedStateFromProps(nextProps, prevState) {
   //   if (nextProps.rows) {
   //     return {
@@ -91,6 +87,11 @@ export class FrankenList extends React.Component {
   renderRow = (item, idx) => {
     return this.props.renderRow(item, idx)
   }
+
+  // FIXME: this implementation works so there is something wrong with the draggable row
+  // renderItem = ({ item, index }) => {
+  //   return this.props.renderRow(item.row, index)
+  // }
 
   renderItem = ({ item, index }) => {
     return (
@@ -345,12 +346,26 @@ export class FrankenList extends React.Component {
     this.contentSize = { width: cntWidth, height: cntHeight }
   }
 
+  _getItemLayout = (data, index) => ({
+    length: this.itemSize(index),
+    offset: this.itemSize(index) * index,
+    index,
+  })
+
   render() {
+    // const { listSize } = this.state
+
     return (
       <FlatList
         ref={ref => (this.list = ref)}
         scrollEnabled={this.state.scrollEnabled}
-        style={this.props.style}
+        style={[
+          this.props.style,
+          // {
+          //   height: this.props.horizontal ? null : listSize,
+          //   width: this.props.horizontal ? listSize : null,
+          // },
+        ]}
         scrollEventThrottle={256}
         onScroll={this._onScroll}
         onLayout={this._onScrollLayout}
@@ -360,7 +375,7 @@ export class FrankenList extends React.Component {
         // keyboardDismissMode="on-drag"
         data={this.state.rows}
         renderItem={this.renderItem}
-        getItemLayout={this.getItemLayout}
+        getItemLayout={this._getItemLayout}
       />
     )
   }

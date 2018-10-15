@@ -302,6 +302,7 @@ export class DraggableRowComponent extends React.Component {
         margin: 10,
         flexDirection: 'row',
         justifyContent: 'center',
+        overflow: 'visible',
       }
       animationStyle = {
         transform: [
@@ -388,7 +389,7 @@ const styles = StyleSheet.create({
   row: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: 'red',
+    backgroundColor: 'blue',
   },
   reorderBox: { paddingVertical: 10 },
   handlerStyle: {

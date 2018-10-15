@@ -21,6 +21,8 @@ const arrayMove = (arr, oldIndex, newIndex) => {
   return arr // for testing purposes
 }
 
+// FIXME: this implementation has clearly some issue with the scrolling!
+
 export default class SortableFrankenView extends React.Component {
   state = {
     data: [
@@ -65,14 +67,14 @@ export default class SortableFrankenView extends React.Component {
           flex: 1,
           marginVertical: 10,
         }}
-        pointerEvents="box-none"
+        // pointerEvents="box-none"
       >
         <Text style={[styles.cardText, { width: 25, alignSelf: 'center' }]}>
           {idx}
         </Text>
         <View
           style={[styles.card, { paddingRight: 80 }]}
-          pointerEvents="box-none"
+          // pointerEvents="box-none"
         >
           <TouchableOpacity
             style={styles.cardButton}
@@ -98,18 +100,18 @@ export default class SortableFrankenView extends React.Component {
   }
 
   onButtonPress = () => {
-    // alert('Card was pressed');
+    alert('Card was pressed')
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'gold',
   },
   list: {
     flex: 1,
-    // backgroundColor: 'red',
+    backgroundColor: 'red',
   },
   card: {
     flex: 1,
