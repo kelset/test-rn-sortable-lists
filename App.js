@@ -8,10 +8,15 @@ useScreens()
 
 import SortableFlatlist from './src/SortableFlatlist'
 import SortableScrollView from './src/SortableScrollView'
+import SortableFrankenView from './src/SortableFrankenView'
 
 const SCREENS = {
   SortableFlatlist: { screen: SortableFlatlist, title: 'Using Flatlist' },
   SortableScrollView: { screen: SortableScrollView, title: 'Using ScrollView' },
+  SortableFrankenView: {
+    screen: SortableFrankenView,
+    title: 'Using FrankenView',
+  },
 }
 
 class MainScreen extends React.Component {
