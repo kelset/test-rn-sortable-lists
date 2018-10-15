@@ -353,6 +353,8 @@ export class DnDList extends React.Component {
         onLayout={this._onScrollLayout}
         onContentSizeChange={this._onContentSizeChange}
         horizontal={this.props.horizontal}
+        keyboardShouldPersistTaps="always"
+        keyboardDismissMode="on-drag"
       >
         <View
           style={{
