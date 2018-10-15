@@ -98,7 +98,7 @@ export default class SortableScrollView extends React.Component {
   }
 
   onButtonPress = () => {
-    // alert('Card was pressed');
+    alert('Card was pressed')
   }
 }
 
